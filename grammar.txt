@@ -1,0 +1,46 @@
+Expr             -> AssignExpr
+
+AssignExpr       -> LogicalOrExpr (AssignmentOp LogicalOrExpr)*
+AssignmentOp     -> "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "**=" | "//=" 
+                  | "&=" | "|=" | "^=" | "~=" | "<<=" | ">>="
+
+LogicalOrExpr    -> LogicalAndExpr ("||" LogicalAndExpr)
+LogicalAndExpr   -> BitOrExpr ("&&" BitOrExpr)*
+
+BitOrExpr        -> BitXorExpr ("|" BitXorExpr)*
+BitXorExpr       -> BitAndExpr ("^" BitAndExpr)*
+BitAndExpr       -> EqualityExpr ("&" EqualityExpr)*
+
+EqualityExpr     -> RelationalExpr (EqualityOp RelationalExpr)*
+EqualityOp       -> "==" | "!="
+
+RelationalExpr   -> ShiftExpr (RelationalOp ShiftExpr)*
+RelationalOp     -> "<" | ">" | "<=" | ">="
+
+ShiftExpr        -> AddExpr (ShiftOp AddExpr)*
+ShiftOp          -> "<<" | ">>"
+
+AddExpr          -> MulExpr (AddOp MulExpr)*
+AddOp            -> "+" | "-"
+
+MulExpr          -> ExpExpr (MulOp ExpExpr)*
+MulOp            -> "*" | "/" | "%" | "//"
+
+ExpExpr          -> UnaryExpr ("**" UnaryExpr)*
+
+UnaryExpr        -> PostfixExpr | UnaryOp UnaryExpr
+UnaryOp          -> "!" | "~" | "+" | "-"
+
+PostfixExpr      -> PrimaryExpr ("[" Expr "]" | "(" ArgList? ")" | "." Identifier)*
+
+PrimaryExpr      -> Literal
+                  | "(" Expr ")"
+                  | Identifier
+                  | KwTrue
+                  | KwFalse
+
+Literal          -> LtInteger | LtFloat | LtChar | LtString
+
+ArgList          -> Expr ("," Expr)*
+
+
