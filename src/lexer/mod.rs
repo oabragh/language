@@ -8,7 +8,7 @@ use std::iter::Peekable;
 use std::str::Chars;
 
 use error::LexicalError;
-use token::{Location, Spanned, Token, TokenType};
+use token::{Location, Token, TokenType};
 
 pub struct Lexer<'a> {
     /// The character stream to tokenize, peekable for lookahead.
@@ -401,7 +401,7 @@ impl<'a> Iterator for Lexer<'a> {
 
         let end = self.index;
 
-        Some(Spanned {
+        Some(Token {
             value: tokentype,
             location: Location { start, end },
         })

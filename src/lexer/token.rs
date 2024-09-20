@@ -1,10 +1,8 @@
 use crate::lexer::error::LexicalError;
 
-pub type Token = Spanned<TokenType>;
-
 #[derive(Debug, PartialEq, Clone)]
-pub struct Spanned<T> {
-    pub value: T,
+pub struct Token {
+    pub value: TokenType,
     pub location: Location,
 }
 
